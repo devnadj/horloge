@@ -103,8 +103,6 @@ function showTime() {
     const secondsHand = document.querySelector('.seconds')
     const hoursHand = document.querySelector('.hours');
     const minutesHand = document.querySelector('.minutes');
-    hoursHand.style.stroke = 'red';
-    minutesHand.style.stroke = 'blue';
 
     /* version en modifiant le CSS */
     secondsHand.style.transform = `rotate(${angleSeconds}deg)`;
