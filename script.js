@@ -94,23 +94,41 @@ function showTime() {
     let minutes = date.getMinutes();
     
     let seconds = date.getSeconds();
-    document.querySelector('p').textContent = `${hours<20?'0'+hours:hours}:${minutes<10?'0'+minutes:minutes}:${seconds<10?'0'+seconds:seconds}`;
+    document.querySelector('p').textContent = `${hours < 10? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds:seconds}`;
 
-    const angleHours = hours > 12 ? (hours -12)  * (360/12) : hours * (360/12)
-    const angleMinutes = minutes * (360/60);
-    const angleSeconds = seconds * (360/60);
+    const angleHours = hours > 12 ? (hours -12)  * (360/12) -90 : hours * (360/12) - 90
+    const angleMinutes = minutes * (360/60) - 90;
+    const angleSeconds = seconds * (360/60) - 90;
     
-    const secondsPointer = document.querySelector('.seconds')
-    const hoursPointer = document.querySelector('.hours');
-    const minutesPointer = document.querySelector('.minutes');
-    hoursPointer.style.stroke = 'red';
-    minutesPointer.style.stroke = 'blue';
+    const secondsHand = document.querySelector('.seconds')
+    const hoursHand = document.querySelector('.hours');
+    const minutesHand = document.querySelector('.minutes');
+    hoursHand.style.stroke = 'red';
+    minutesHand.style.stroke = 'blue';
 
-    secondsPointer.style.transform = `rotate(${angleSeconds}deg)`;
-    minutesPointer.style.transform = `rotate(${angleMinutes}deg)`;
-    hoursPointer.style.transform = `rotate(${angleHours}deg)`;
+    /* version en modifiant le CSS */
+    secondsHand.style.transform = `rotate(${angleSeconds}deg)`;
+    minutesHand.style.transform = `rotate(${angleMinutes}deg)`;
+    hoursHand.style.transform = `rotate(${angleHours}deg)`;
 
+    /* version en jouant sur les attributs x2 et y2 des lignes */
+    /*
+    const x2Hours = 100 + 70 * Math.cos (Math.PI * angleHours / 180);
+    const y2Hours = 100 + 70 * Math.sin (Math.PI * angleHours / 180);
+    hoursHand.setAttribute('x2', x2Hours)
+    hoursHand.setAttribute('y2', y2Hours)
+
+    const x2Minutess = 100 + 80 * Math.cos (Math.PI * angleMinutes / 180);
+    const y2Minutess = 100 +80 * Math.sin (Math.PI * angleMinutes / 180);
+    minutesHand.setAttribute('x2', x2Minutess)
+    minutesHand.setAttribute('y2', y2Minutess)
+
+    const x2Seconds = 100 + 80 * Math.cos (Math.PI * angleSeconds / 180);
+    const y2Seconds = 100 + 80 * Math.sin (Math.PI * angleSeconds / 180);
+    console.log('x2:' , x2Seconds, 'y2: ', y2Seconds);
+    secondsHand.setAttribute('x2', x2Seconds);
+    secondsHand.setAttribute('y2', y2Seconds);
+    */
 }
 
 setInterval(showTime, 1000);
-showTime();
