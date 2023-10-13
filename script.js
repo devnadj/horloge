@@ -100,10 +100,6 @@ function showTime() {
     const angleMinutes = minutes * (360/60);
     const angleSeconds = seconds * (360/60);
     
-    // document.querySelector('.angleHours').textContent = angleHours;
-    // document.querySelector('.angleMinutes').textContent = angleMinutes;
-    // document.querySelector('.angleSeconds').textContent = angleSeconds;
-
     const secondsPointer = document.querySelector('.seconds')
     const hoursPointer = document.querySelector('.hours');
     const minutesPointer = document.querySelector('.minutes');
