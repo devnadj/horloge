@@ -100,9 +100,9 @@ function showTime() {
     const angleMinutes = minutes * (360/60);
     const angleSeconds = seconds * (360/60);
     
-    document.querySelector('.angleHours').textContent = angleHours;
-    document.querySelector('.angleMinutes').textContent = angleMinutes;
-    document.querySelector('.angleSeconds').textContent = angleSeconds;
+    // document.querySelector('.angleHours').textContent = angleHours;
+    // document.querySelector('.angleMinutes').textContent = angleMinutes;
+    // document.querySelector('.angleSeconds').textContent = angleSeconds;
 
     const secondsPointer = document.querySelector('.seconds')
     const hoursPointer = document.querySelector('.hours');
@@ -110,10 +110,9 @@ function showTime() {
     hoursPointer.style.stroke = 'red';
     minutesPointer.style.stroke = 'blue';
 
-    console.log(secondsPointer);
-    secondsPointer.style.transform = `rotate(${angleSeconds -90}deg)`;
-    minutesPointer.style.transform = `rotate(${angleMinutes -90}deg)`;
-    hoursPointer.style.transform = `rotate(${angleHours -90}deg)`;
+    secondsPointer.style.transform = `rotate(${angleSeconds}deg)`;
+    minutesPointer.style.transform = `rotate(${angleMinutes}deg)`;
+    hoursPointer.style.transform = `rotate(${angleHours}deg)`;
 
 }
 
