@@ -21,39 +21,24 @@ p {
     font-size: 24px;
 }
 
-.cadran {
-    border: 1px solid black;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center ;
-}
-
 .center {
-    border: 1px solid black;
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
+    background-color: black;
+
+    position: absolute;
+    left: 50%;;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .clock {
     position: relative;
     width: 200px;
     height: 200px;
-    border: 1px solid black;
+    border: 12px solid black;
     border-radius: 50%;
-}
-
-.center {
-    position: absolute;
-    left: 50%;;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: aliceblue;
-    z-index: 1;
 }
 
 .number {
@@ -106,4 +91,63 @@ p {
 .seconds {
     stroke: blue;
     transform-origin: center;
+}
+
+.delimiter {
+    transform-origin: center;
+}
+
+.d1 { transform: rotate(30deg); }
+
+.d2 {
+    transform: rotate(60deg);
+}
+
+.d3 {
+    transform: rotate(90deg);
+}
+
+.d4 {
+    transform: rotate(120deg);
+}
+
+.d5 {
+    transform: rotate(150deg);
+}
+
+.d6 {
+    transform: rotate(180deg);
+}
+
+.d7 {
+    transform: rotate(210deg);
+}
+
+.d8 {
+    transform: rotate(240deg);
+}
+
+.d9 {
+    transform: rotate(270deg);
+}
+
+.d10 {
+    transform: rotate(300deg);
+}
+
+.d11 {
+    transform: rotate(330deg);
+}
+
+
+.line {
+    display: flex;
+    flex-direction: row;
+}
+
+.del {
+    background-color: black;
+    width: 3mm;
+    height: 3mm;
+    margin: 0.5px;
 }
