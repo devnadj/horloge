@@ -39,6 +39,7 @@ p {
     height: 200px;
     border: 12px solid black;
     border-radius: 50%;
+    background-color: aliceblue;
 }
 
 .number {
@@ -69,13 +70,6 @@ p {
     transform: translate(0, -50%);
 }
 
-.pointers {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: whitesmoke;
-}
-
 .hours {
     stroke: black;
     stroke-width: 4px;
@@ -97,7 +91,7 @@ p {
     transform-origin: center;
 }
 
-.d1 { transform: rotate(30deg); }
+.d1 {transform: rotate(30deg);}
 
 .d2 {
     transform: rotate(60deg);

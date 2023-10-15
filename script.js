@@ -46,19 +46,33 @@ class Matrix {
     matrix;
     height;
     width;
-    constructor(x, y) {
-        this.height = y;
-        this.width = x;
-        this.matrix = Array(x).fill(Array(y).fill(0));
+    element
+
+    /**
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     * @param {HTMLElement} element
+     * 
+     */
+    constructor(xSize, ySize, element) {
+        this.element = element;
+        this.width = xSize;
+        this.height = ySize;
+        this.matrix = Array(xSize).fill(Array(ySize).fill(0));
     }
 
+    /**
+     * show de points matrix à the this.element position
+     * @param {}
+     * 
+     */
     show() {
-        const matrixElement = document.querySelector('.matrix')
         for(let yCounter = 0; yCounter < this.height; yCounter++) {
             const line = document.createElement('div');
             line.classList.add('line');
             line.classList.add(`l${yCounter}`)
-            matrixElement.append(line);
+            this.element.append(line);
             for(let xCounter = 0; xCounter < this.width; xCounter ++) {
                 const del = document.createElement('div');
                 del.classList.add('del');
@@ -68,20 +82,26 @@ class Matrix {
         }
     }
 
+    /**
+     * remove the points matrix
+     */
+    remove() {
+        const lines = this.element.querySelectorAll('.line');
+        for(const line of lines) {
+            line.remove();
+        }
+    }
+
     clear(color) {
         const dels = document.querySelectorAll('.del');
-        console.log(dels);
         for(const del of dels) {
             del.style.backgroundColor = color;
-            //console.log(del);
-
         }
     }
 
     set(x, y, color) {
         if(y >= this.height || x >= this.width) {
             throw new Error('index out of range');
-            console.log('.... . ..')
         }
         else {
             document.querySelector(`.l${y} .c${x}`).style.backgroundColor = color;
@@ -98,81 +118,168 @@ class Matrix {
     }
 }
 
-const heure = new Matrix(45, 9);
-heure.show();
 
-function showTime() {
+class AnalogicClock {
+    element;
+    svg;
+    circle;
+    hoursLine;
+    minutesLine;
+    secondsLine;
+    xSize;
+    ySize;
+    constructor(element, size = {x:200, y:200}) {
+        this.xSize = size.x;
+        this.ySize = size.y;
+        this.element = element;
+        element.style.width = this.xSize;
+        element.style.height = this.ySize;
+    }
 
-    const date = new Date();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-    document.querySelector('p').textContent = `${hours < 10? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds:seconds}`;
+    show() {
+        this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+        this.svg.classList.add('pointers');
+        this.svg.style.width = this.xSize;
+        this.svg.style.height = this.ySize;
 
-    const angleHours = hours > 12 ? 0.5 * minutes + (hours -12)  * (360/12) -90 : 0.5 * minutes + hours * (360/12) - 90
-    const angleMinutes = minutes * (360/60) - 90;
-    const angleSeconds = seconds * (360/60) - 90;
-    
-    const secondsHand = document.querySelector('.seconds')
-    const hoursHand = document.querySelector('.hours');
-    const minutesHand = document.querySelector('.minutes');
+        this.hoursLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        this.hoursLine.classList.add('hours');
+        this.hoursLine.setAttribute('x1', this.xSize / 2);
+        this.hoursLine.setAttribute('y1', this.ySize / 2);
+        this.svg.append(this.hoursLine);
 
-    /* version en modifiant le CSS */
-    /*
-    secondsHand.style.transform = `rotate(${angleSeconds}deg)`;
-    minutesHand.style.transform = `rotate(${angleMinutes}deg)`;
-    hoursHand.style.transform = `rotate(${angleHours}deg)`;
-    */
-
-    /* version en jouant sur les attributs x2 et y2 des lignes */
-    const x2Hours = 100 + 70 * Math.cos (Math.PI * angleHours / 180);
-    const y2Hours = 100 + 70 * Math.sin (Math.PI * angleHours / 180);
-    hoursHand.setAttribute('x2', x2Hours)
-    hoursHand.setAttribute('y2', y2Hours)
-
-    const x2Minutess = 100 + 80 * Math.cos (Math.PI * angleMinutes / 180);
-    const y2Minutess = 100 +80 * Math.sin (Math.PI * angleMinutes / 180);
-    minutesHand.setAttribute('x2', x2Minutess)
-    minutesHand.setAttribute('y2', y2Minutess)
-
-    const x2Seconds = 100 + 90 * Math.cos (Math.PI * angleSeconds / 180);
-    const y2Seconds = 100 + 90 * Math.sin (Math.PI * angleSeconds / 180);
-    // console.log('x2:' , x2Seconds, 'y2: ', y2Seconds);
-    secondsHand.setAttribute('x2', x2Seconds);
-    secondsHand.setAttribute('y2', y2Seconds);
-
-    /* séparer les caractères de l'heure */
-    const unitsDigitHours = hours %10;
-    const tensDigitHours = (hours - unitsDigitHours) / 10;
-    console.log('Hours : ', tensDigitHours,unitsDigitHours);
-    
-    const unitsDigitMinutes = minutes %10;
-    const tensDigitMinutes = (minutes - unitsDigitMinutes) / 10;
-    console.log('Minutes : ', tensDigitMinutes, unitsDigitMinutes);
-
-    const unitsDigitSeconds = seconds %10;
-    const tensDigitSeconds = (seconds - unitsDigitSeconds) / 10;
-    console.log('Secondes : ', tensDigitSeconds, unitsDigitSeconds);
+        this.minutesLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        this.minutesLine.classList.add('minutes');
+        this.minutesLine.setAttribute('x1', this.xSize / 2);
+        this.minutesLine.setAttribute('y1', this.ySize / 2);
+        this.svg.append(this.minutesLine);
 
 
-    heure.clear('black');
-    heure.addLetter(tensDigitHours, {x:1, y:1});
-    heure.addLetter(unitsDigitHours, {x:7, y:1});
-    heure.set(14, 2, 'red')
-    heure.set(14, 3, 'red')
-    heure.set(14, 5, 'red')
-    heure.set(14, 6, 'red')
-    heure.addLetter(tensDigitMinutes, {x:17, y:1});
-    heure.addLetter(unitsDigitMinutes, {x:23, y:1});
-    heure.set(30, 2, 'red')
-    heure.set(30, 3, 'red')
-    heure.set(30, 5, 'red')
-    heure.set(30, 6, 'red')
-    heure.addLetter(tensDigitSeconds, {x:33, y:1});
-    heure.addLetter(unitsDigitSeconds, {x:39, y:1});
+        this.secondsLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        this.secondsLine.classList.add('seconds');
+        this.secondsLine.setAttribute('stroke', 'black');
+        this.secondsLine.setAttribute('stroke-width', 1);
+        this.secondsLine.setAttribute('x1', this.xSize / 2);
+        this.secondsLine.setAttribute('y1', this.ySize / 2);
+        this.svg.append(this.secondsLine);
+
+        this.circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        this.circle.setAttribute('stroke', 'black');
+        this.circle.setAttribute('cx', this.xSize / 2);
+        this.circle.setAttribute('cy', this.ySize / 2);
+        this.circle.setAttribute('r', 6);
+        this.svg.append(this.circle);
+
+        for(let i = 0; i < 12; i++) {
+            const delimiter = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            delimiter.classList.add('delimiter');
+            delimiter.setAttribute('stroke', 'black');
+
+            delimiter.setAttribute('x1', this.xSize / 2);
+            delimiter.setAttribute('y1', 0);
+
+            delimiter.setAttribute('x2', this.xSize / 2);
+            delimiter.setAttribute('y2', 10);
+
+            delimiter.style.transformOrigin = 'center';
+            delimiter.style.transform = `rotate(${i * 30}deg)`;
+            if(i%3 === 0) {
+                 delimiter.setAttribute('stroke-width', '3')
+                 delimiter.setAttribute('y2', 6);
+            }
+            this.svg.append(delimiter);
+        }
+        this.element.append(this.svg);
+    }
+
+    updateTime () {
+        const date = new Date();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+
+        const angleHours = hours > 12 ? 0.5 * minutes + (hours -12)  * (360/12) -90 : 0.5 * minutes + hours * (360/12) - 90
+        const angleMinutes = minutes * (360/60) - 90;
+        const angleSeconds = seconds * (360/60) - 90;
+
+
+        /* version en jouant sur les attributs x2 et y2 des lignes */
+        const x2Hours = this.xSize / 2 + 0.7 * (this.xSize / 2) * Math.cos (Math.PI * angleHours / 180);
+        const y2Hours = this.ySize / 2 + 0.7 * (this.ySize / 2) * Math.sin (Math.PI * angleHours / 180);
+        this.hoursLine.setAttribute('stroke', 'black');
+        this.hoursLine.setAttribute('x2', x2Hours)
+        this.hoursLine.setAttribute('y2', y2Hours)
+
+        const x2Minutess = this.xSize / 2 + 0.8 * (this.xSize / 2) * Math.cos (Math.PI * angleMinutes / 180);
+        const y2Minutess = this.ySize / 2 + 0.8 * (this.ySize / 2) * Math.sin (Math.PI * angleMinutes / 180);
+        this.minutesLine.setAttribute('x2', x2Minutess)
+        this.minutesLine.setAttribute('y2', y2Minutess)
+
+        const x2Seconds = this.xSize / 2 + 0.9 * (this.xSize / 2) * Math.cos (Math.PI * angleSeconds / 180);
+        const y2Seconds = this.ySize / 2 + 0.9 * (this.ySize / 2) * Math.sin (Math.PI * angleSeconds / 180);
+        this.secondsLine.setAttribute('x2', x2Seconds);
+        this.secondsLine.setAttribute('y2', y2Seconds);
+    }
 }
 
-setInterval(showTime, 1000);
+class DigitalClock {
+    matrix;
+    date;
+    hours;
+    minutes;    
+//     const date = new Date();
+//     const hours = date.getHours();
+//     const minutes = date.getMinutes();
+//     const seconds = date.getSeconds();
 
+    constructor(backgroundColor, textColor, element) {
+        this.matrix = new Matrix(45, 9, element);
+    }
 
+    show() {
+        this.matrix.show();
+    }
 
+    updateTime () {
+        const date = new Date();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+
+        /* séparer les caractères de l'heure */
+        const unitsDigitHours = hours %10;
+        const tensDigitHours = (hours - unitsDigitHours) / 10;
+    
+        const unitsDigitMinutes = minutes %10;
+        const tensDigitMinutes = (minutes - unitsDigitMinutes) / 10;
+
+        const unitsDigitSeconds = seconds %10;
+        const tensDigitSeconds = (seconds - unitsDigitSeconds) / 10;
+
+        this.matrix.clear('black');
+        this.matrix.addLetter(tensDigitHours, {x:1, y:1});
+        this.matrix.addLetter(unitsDigitHours, {x:7, y:1});
+        this.matrix.set(14, 2, 'red')
+        this.matrix.set(14, 3, 'red')
+        this.matrix.set(14, 5, 'red')
+        this.matrix.set(14, 6, 'red')
+        this.matrix.addLetter(tensDigitMinutes, {x:17, y:1});
+        this.matrix.addLetter(unitsDigitMinutes, {x:23, y:1});
+        this.matrix.set(30, 2, 'red')
+        this.matrix.set(30, 3, 'red')
+        this.matrix.set(30, 5, 'red')
+        this.matrix.set(30, 6, 'red')
+        this.matrix.addLetter(tensDigitSeconds, {x:33, y:1});
+        this.matrix.addLetter(unitsDigitSeconds, {x:39, y:1});        
+
+    }
+
+}
+
+const analogicClock = new AnalogicClock(document.querySelector('.clock'), {x: 200, y: 200});
+analogicClock.show();
+setInterval(function(){analogicClock.updateTime()}, 1000);
+
+const digitalClock = new DigitalClock('black', '#777', document.querySelector('.matrix'));
+digitalClock.show();
+setInterval(function(){digitalClock.updateTime()}, 1000);
