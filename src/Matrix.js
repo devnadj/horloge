@@ -84,7 +84,7 @@ export class Matrix {
     }
 
     clear(color) {
-        const dels = document.querySelectorAll('.del');
+        const dels = this.element.querySelectorAll('.del');
         for(const del of dels) {
             del.style.backgroundColor = color;
         }
@@ -95,7 +95,7 @@ export class Matrix {
             throw new Error('index out of range');
         }
         else {
-            document.querySelector(`.l${y} .c${x}`).style.backgroundColor = color;
+            this.element.querySelector(`.l${y} .c${x}`).style.backgroundColor = color;
         }
     }
 
