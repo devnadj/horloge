@@ -92,7 +92,9 @@ export class Matrix {
 
     set(x, y, color) {
         if(y >= this.height || x >= this.width) {
-            throw new Error('index out of range');
+            throw new Error(`matrix error : index out of range 
+            x: ${x} - xmax: ${this.width} - 1
+            y: ${y} - ymax: ${this.height} - 1`);
         }
         else {
             this.element.querySelector(`.l${y} .c${x}`).style.backgroundColor = color;

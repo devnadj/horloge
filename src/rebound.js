@@ -8,43 +8,65 @@ export class Rebound {
     xPosition;
     yPosition;
     xDelta;
-    yDela;
+    yDelta;
     backgroundColor;
     ballColor;
+    balls;
 
-    constructor(element, xSize, ySize, backgroundColor, ballColor) {
+    constructor(element, xSize, ySize, backgroundColor, balls) {
         this.element = element;
         this.backgroundColor = backgroundColor;
-        this.ballColor = ballColor;
         this.xSize = xSize;
         this.ySize = ySize;
         this.xPosition = 0;
         this.yPosition = 0;
         this.xDelta = 1;
-        this.yDela = 1;
+        this.yDelta = 1;
         this.matrix = new Matrix(this.element, this.xSize, this.ySize);
+
+        this.balls = [];
+
+
+
+        for(const ball of balls) {
+            ball.xDelta = 1;
+            ball.yDelta = 1;
+            this.balls.push(ball);
+        }
     }
 
     show() {
-        console.log(this.matrix);
-        console.log(this.element);
-        console.log(this.xSize);
-        console.log(this.ySize);
-
-        console.log(this.matrix.clear);
         this.matrix.show();
         this.matrix.clear(this.backgroundColor);
     }
 
     update() {
+
         this.matrix.clear(this.backgroundColor)
-        this.matrix.set(this.xPosition, this.yPosition, this.ballColor);
-        this.xPosition += this.xDelta;
-        this.yPosition += this.yDela
-        if(this.xPosition >= 47) this.xDelta = -1;
-        if(this.yPosition >= 15) this.yDela = -1;
-        if(this.xPosition === 0) this.xDelta = 1;
-        if(this.yPosition === 0) this.yDela = 1;
+
+        for(const ball of this.balls) {
+            this.matrix.set(ball.x, ball.y, ball.color);
+
+            if(ball.x >= (this.xSize - 1)) ball.xDelta = -1;
+            if(ball.y >= (this.ySize - 1)) ball.yDelta = -1;
+            if(ball.x === 0) ball.xDelta = 1;
+            if(ball.y === 0) ball.yDelta = 1;
+
+            ball.x += ball.xDelta;
+            ball.y += ball.yDelta
+        }
+
+        console.log(this.balls)
+
+
+        // this.matrix.clear(this.backgroundColor)
+        // this.matrix.set(this.xPosition, this.yPosition, this.ballColor);
+        // this.xPosition += this.xDelta;
+        // this.yPosition += this.yDelta
+        // if(this.xPosition >= this.xSize-1) this.xDelta = -1;
+        // if(this.yPosition >= this.ySize - 1) this.yDelta = -1;
+        // if(this.xPosition === 0) this.xDelta = 1;
+        // if(this.yPosition === 0) this.yDelta = 1;
     }
 }
 
