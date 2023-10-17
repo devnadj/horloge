@@ -67,10 +67,10 @@ export class Matrix {
             line.classList.add(`l${yCounter}`)
             this.element.append(line);
             for(let xCounter = 0; xCounter < this.width; xCounter ++) {
-                const del = document.createElement('div');
-                del.classList.add('del');
-                del.classList.add(`c${xCounter}`)
-                line.append(del);
+                const pixel = document.createElement('div');
+                pixel.classList.add('pixel');
+                pixel.classList.add(`c${xCounter}`)
+                line.append(pixel);
             }  
         }
     }
@@ -84,9 +84,9 @@ export class Matrix {
     }
 
     clear(backgroundColor) {
-        const dels = this.element.querySelectorAll('.del');
-        for(const del of dels) {
-            del.style.backgroundColor = backgroundColor;
+        const pixels = this.element.querySelectorAll('.pixel');
+        for(const pixel of pixels) {
+            pixel.style.backgroundColor = backgroundColor;
         }
     }
 

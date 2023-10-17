@@ -96,13 +96,9 @@ p {
     flex-direction: row;
 }
 
-.del {
+.pixel {
     background-color: black;
     width: 2mm;
     height: 2mm;
     margin: 0.5px;
-}
-
-.del:hover {
-    background-color: aqua;
 }
