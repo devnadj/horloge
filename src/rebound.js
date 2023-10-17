@@ -47,3 +47,5 @@ export class Rebound {
         if(this.yPosition === 0) this.yDela = 1;
     }
 }
+
+// setInterval(function(){digitalClock.updateTime()}, 1000);

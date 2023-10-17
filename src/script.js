@@ -10,6 +10,6 @@ const digitalClock = new DigitalClock(document.querySelector('.matrix'), '#222',
 digitalClock.show();
 setInterval(function(){digitalClock.updateTime()}, 1000);
 
-const rebound = new Rebound(document.querySelector('.rebond'), 48, 16, '#222', 'white');;
+const rebound = new Rebound(document.querySelector('.rebound'), 48, 16, '#222', 'white');;
 rebound.show();
-setInterval(function(){rebond.update()}, 100);
+setInterval(function(){rebound.update()}, 100);
