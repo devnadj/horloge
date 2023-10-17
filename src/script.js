@@ -6,10 +6,10 @@ const analogicClock = new AnalogicClock(document.querySelector('.clock'), {x: 20
 analogicClock.show();
 setInterval(function(){analogicClock.updateTime()}, 1000);
 
-const digitalClock = new DigitalClock(document.querySelector('.matrix'), '#333', '#ccc');
+const digitalClock = new DigitalClock(document.querySelector('.matrix'), '#222', '#ddd');
 digitalClock.show();
 setInterval(function(){digitalClock.updateTime()}, 1000);
 
-const rebond = new Rebound(document.querySelector('.rebond'), 48, 16, 'aqua', 'red');;
+const rebond = new Rebound(document.querySelector('.rebond'), 48, 16, '#222', 'white');;
 rebond.show();
 setInterval(function(){rebond.update()}, 100);
