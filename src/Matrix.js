@@ -36,7 +36,7 @@ const police = {
     '7':[[1,1,1,1,1],[0,0,0,0,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[0,1,0,0,0],[0,1,0,0,0]],
     '8':[[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
     '9':[[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,1],[0,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
-    ':':[[0,0,0,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,0,0,0]]
+    ':':[[0,0,0,0,0],[0,1,1,0,0],[0,1,1,0,0],[0,0,0,0,0],[0,1,1,0,0],[0,1,1,0,0],[0,0,0,0,0]]
 };
 
 export class Matrix {
@@ -52,7 +52,7 @@ export class Matrix {
      * @param {HTMLElement} element
      * 
      */
-    constructor(xSize, ySize, element) {
+    constructor(element, xSize, ySize) {
         this.element = element;
         this.width = xSize;
         this.height = ySize;
@@ -83,10 +83,10 @@ export class Matrix {
         }
     }
 
-    clear(color) {
+    clear(backgroundColor) {
         const dels = this.element.querySelectorAll('.del');
         for(const del of dels) {
-            del.style.backgroundColor = color;
+            del.style.backgroundColor = backgroundColor;
         }
     }
 
@@ -99,11 +99,11 @@ export class Matrix {
         }
     }
 
-    addLetter(letter, position) {
+    addLetter(letter, position, color) {
         for(let y = 0; y < 7; y ++) {
             for(let x = 0; x < 5; x++) {
                 if(police[letter][y][x] !== 0)
-                    this.set(x + position.x, y + position.y, '#ccc');
+                    this.set(x + position.x, y + position.y, color);
             }
         }
     }
