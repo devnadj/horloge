@@ -2,6 +2,7 @@ import {DigitalClock} from './digitalclock.js';
 import {AnalogicClock} from './analogicclock.js'
 import { Rebound } from './rebound.js';
 
+debugger;
 const analogicClock = new AnalogicClock(document.querySelector('.clock'), {x: 200, y: 200});
 analogicClock.show();
 setInterval(function(){analogicClock.updateTime()}, 1000);
