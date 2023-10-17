@@ -7,7 +7,7 @@ const analogicClock = new AnalogicClock(document.querySelector('.clock'), {x: 20
 analogicClock.show();
 setInterval(function(){analogicClock.updateTime()}, 1000);
 
-const digitalClock = new DigitalClock(document.querySelector('.matrix'), '#222', '#ddd');
+const digitalClock = new DigitalClock(document.querySelector('.digital-clock'), '#222', '#ddd');
 digitalClock.show();
 setInterval(function(){digitalClock.updateTime()}, 1000);
 
